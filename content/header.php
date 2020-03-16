@@ -1,6 +1,6 @@
-<title>phpBasicCMS</title>
+<title>Nachbarshilfe</title>
 
-<meta name="author" content="Hannes Eilers">
+<meta name="author" content="Digital Bastel Bude">
 <meta http-equiv="content-language" content="en">
 <meta name="robots" content="index, follow">
 

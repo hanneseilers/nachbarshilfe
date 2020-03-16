@@ -1,6 +1,12 @@
-<p>
-	---- FOOTER FILE ----
-</p>
+<footer class="page-footer font-small blue bg-dark text-light">
+
+	<!-- Copyright -->
+	<div class="footer-copyright text-center py-3">© 2020 Copyright:
+		<a href="https://dibabu.de/"> Digital Bastel Bude</a> - <a href="?impressum">Impressum & Datenschutz</a>
+	</div>
+	<!-- Copyright -->
+
+</footer>
 
 <!-- jQuery and Propper.js include -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

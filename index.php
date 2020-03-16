@@ -10,6 +10,11 @@
 	$php = $includes."php/";
 	
 	include( $php."base.php" );	
+	require( $php."Medoo.php" );
+	include( $php."db_init.php" );
+	
+	// Using Medoo namespace
+	use Medoo\Medoo;
 ?>
 
 <html>
