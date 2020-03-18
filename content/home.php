@@ -28,6 +28,7 @@
 				<div class="alert alert-danger" id = "err_loginfailed" style="display: none;"><small>Login fehlgeschlagen</small></div>
 				<hr />
 			
+				<!-- Load auth plugin -->
 				<?php getJs('auth'); ?>
 				<span id="authurl" value="<?php global $php; print $php."auth.php" ?>" hidden></span>
 				
@@ -72,7 +73,7 @@
 				</p>
 				
 				<p>
-					<button class="btn btn-info"><i class="fa fa-plus fa-fw"></i> Anmelden</button>
+					<a href="?register"><button class="btn btn-info"><i class="fa fa-plus fa-fw"></i> Anmelden</button></a>
 				</p>
 				
 			</div>
