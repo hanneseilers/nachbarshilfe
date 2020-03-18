@@ -1,4 +1,18 @@
 <?php
+
+	// SYSTEM INIT
+	// Using Medoo namespace
+	use Medoo\Medoo;
+
+	// load site config
+	$cfg = parse_ini_file( $includes."config.ini", true );
+
+	// databse init
+	global $db;
+	$db = db_init($cfg['sql']);
+
+	// FUNCTIONS
+
 	# ---- Error Codes ----
 	$err_404 = "Die Seite wurde nicht gefunden.";
 	

@@ -1,26 +1,10 @@
 <!DOCTYPE HTML>
 
 <?php
-	# file-system config
-	$content = "content/";
-	$assets = "assets/";
-	$includes = "includes/";
-	$js = $includes."js/";
-	$css = $includes."css/";
-	$php = $includes."php/";
-	
-	include( $php."base.php" );	
+	require( "config.php" );
 	require( $php."Medoo.php" );
-	include( $php."db_init.php" );
-	
-	// Using Medoo namespace
-	use Medoo\Medoo;
-	
-	// load site config
-	$cfg = parse_ini_file( $includes."config.ini", true );
-	
-	// databse init
-	db_init($cfg['sql']);
+	require( $php."db_init.php" );
+	require( $php."base.php" );
 ?>
 
 <html>
