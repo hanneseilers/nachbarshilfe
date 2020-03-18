@@ -15,6 +15,12 @@
 	
 	// Using Medoo namespace
 	use Medoo\Medoo;
+	
+	// load site config
+	$cfg = parse_ini_file( $includes."config.ini", true );
+	
+	// databse init
+	db_init($cfg['sql']);
 ?>
 
 <html>
