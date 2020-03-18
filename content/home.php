@@ -23,9 +23,15 @@
 			</div>				
 			
 			<div class="col-md-3">
+			
+				<h3>Login</h3>
+				<div class="alert alert-danger" id = "err_loginfailed" style="display: none;"><small>Login fehlgeschlagen</small></div>
+				<hr />
+			
 				<?php getJs('auth'); ?>
-				<form>
+				<span id="authurl" value="<?php global $php; print $php."auth.php" ?>" hidden></span>
 				
+				<p>				
 					<b>entweder:</b>
 					<div class="form-group">						
 						<label for="phone">Telefon</label>
@@ -46,10 +52,18 @@
 					</div>
 					
 					<p>
+					
 					<button class="btn btn-info" onClick="login();"><i class="fas fa-sign-in-alt"></i> Login</button>
-				</p>
-				
-				</form>
+					
+					<script>
+						$(document).ready(function(){
+							$(".form-group > input").keypress(function(event){
+								if( event.type == "keypress" && event.which == 13 )
+									login();
+							});
+						});
+					</script>					
+				</p>		
 				
 				<hr />
 				
