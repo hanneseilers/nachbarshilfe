@@ -1,3 +1,4 @@
+<?php global $cfg; ?>
 <div class="d-flex justify-center">
 	<div class="col-md-10">
 	
@@ -5,17 +6,17 @@
 
 		<h2>Angaben gemäß § 5 TMG</h2>
 			<p>
-			[Geschaeftsbezeichnung]<br />
-			[Vorname] [Nachname]<br />
-			[Straße]<br />
-			[Postleitzahl] [Ort]
+			<?php print( $cfg['impress']['company'] ); ?><br />
+			<?php print( $cfg['impress']['name'] ); ?><br />
+			<?php print( $cfg['impress']['street'] ); ?><br />
+			<?php print( $cfg['impress']['plz'] ); ?> <?php print( $cfg['impress']['city'] ); ?>
 		</p>
 
 		<h2>Kontakt</h2>
 			<p>
-				Telefon: [Telefonnummer]<br />
-				Fax: [Fax-Nummer]<br />
-				E-Mail: [E-Mail-Adresse]<br />
+				Telefon: <?php print( $cfg['impress']['phone'] ); ?><br />
+				Fax: <?php print( $cfg['impress']['fax'] ); ?><br />
+				E-Mail: <?php print( $cfg['impress']['mail'] ); ?><br />
 			</p>
 
 		<h2>EU-Streitschlichtung</h2>
@@ -131,10 +132,15 @@
 				Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:
 			</p>
 			<p>
-				[Voller Namen bzw. die vollständige Unternehmensbezeichnung des Website-Betreibers sowie die vollständige Anschrift]</p>
-			<p>Telefon: [Telefonnummer der verantwortlichen Stelle]<br />
-			E-Mail: [E-Mail-Adresse der verantwortlichen Stelle]
-		</p>
+				<?php print( $cfg['impress']['company'] ); ?><br />
+				<?php print( $cfg['impress']['name'] ); ?><br />
+				<?php print( $cfg['impress']['street'] ); ?><br />
+				<?php print( $cfg['impress']['plz'] ); ?> <?php print( $cfg['impress']['city'] ); ?>
+			</p>
+			<p>
+				Telefon: <?php print( $cfg['impress']['phone'] ); ?><br />
+				E-Mail: <?php print( $cfg['impress']['mail'] ); ?>
+			</p>
 			
 			<p>
 				Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.
