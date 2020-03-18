@@ -50,7 +50,7 @@ function login($ret=true){
 };
 
 // Register new user
-function register (){
+function register($ret=true){
 
 	if(
 	array_key_exists('phone', $_GET) &&
@@ -87,18 +87,24 @@ function register (){
 				"last_updated" => time(),
 				"login_timestamp" => time()
 			]);
+			$id = $db->id();
 			
 			if( count($response) > 0 ){
 			
 				// login user
 				$_GET['t'] = "0";
-				login();				
+				login($ret);
+				if( !$ret ){
+					return $id;
+				}
 
 			}
 			
-		}			
+		}		
 	
 	}
+	
+	return:
 
 };
 
