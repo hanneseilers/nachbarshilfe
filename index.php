@@ -7,6 +7,11 @@
 	require( $php."Medoo.php" );
 	require( $php."db_init.php" );
 	require( $php."base.php" );
+	
+	# handle automatic user login time update
+	if( isset($_SESSION['user']) && validateUserTime() ){
+		updateUserTime();
+	}
 ?>
 
 <html>

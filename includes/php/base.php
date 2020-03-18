@@ -140,3 +140,51 @@
 		return false;
 	
 	}
+	
+	
+	# ---- User Authentification ---
+	
+	# Updates the login timestamp
+	# return:		True if succesfull update, false otherwise
+	function updateUserTime($timestamp=null){
+
+		// request users login timestamp	
+		global $db;	
+		$response = $db->select('users', '*', [
+			"id" => $_SESSION['user']['id']
+		]);
+		
+		if( count($response) > 0 ){
+			
+			// existing user
+			if( is_null($timestamp) ){
+				$timestamp = time();
+			}
+			$response = $db->update('users', [
+				"login_timestamp" => $timestamp
+			], ["id" => $_SESSION['user']['id']]);
+			$_SESSION['user']['login_timestamp'] = $timestamp;
+
+			if( $response ){
+				return true;
+			}
+	
+		}
+				
+		return false;
+
+	}
+	
+	# Validates the current user login time
+	# return:		True if user is still logged in, False otherwise.
+	function validateUserTime(){
+
+		global $cfg;
+		if( isset($_SESSION['user']) ){
+			if( (time() - $_SESSION['user']['login_timestamp']) < $cfg['permissions']['max_login_time'])
+				return $cfg['permissions']['max_login_time'] - (time() - $_SESSION['user']['login_timestamp']);
+		}
+		
+		return false;
+
+	}
