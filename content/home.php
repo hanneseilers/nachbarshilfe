@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="col-md-12 bg-primary text-light p-2">
 				
-				<h1><?php print $cfg['site']['name'];?></h1>
+				<h1><i class="fas fa-hands-helping fa-fw"></i> <?php print $cfg['site']['name'];?></h1>
 				
 			</div>
 		</div>
