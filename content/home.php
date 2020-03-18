@@ -23,6 +23,7 @@
 			</div>				
 			
 			<div class="col-md-3">
+				<?php getJs('auth'); ?>
 				<form>
 				
 					<b>entweder:</b>
@@ -41,11 +42,11 @@
 					
 					<div class="form-group">						
 						<label for="pw">Passwort</label>
-						<input type="password" class="form-control" id="plz" aria-describedby="Passwort" placeholder="Passwort" required>
+						<input type="password" class="form-control" id="pw" aria-describedby="Passwort" placeholder="Passwort" required>
 					</div>
 					
 					<p>
-					<button class="btn btn-info"><i class="fas fa-sign-in-alt"></i> Login</button>
+					<button class="btn btn-info" onClick="login();"><i class="fas fa-sign-in-alt"></i> Login</button>
 				</p>
 				
 				</form>
