@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 
 <?php
+	session_start();
+	
 	require( "config.php" );
 	require( $php."Medoo.php" );
 	require( $php."db_init.php" );

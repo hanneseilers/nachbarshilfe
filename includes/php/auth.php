@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $includes = "../../includes/";
 require( "../../config.php" );
@@ -29,8 +30,11 @@ if( array_key_exists('t', $_GET) ){
 				]
 			]);
 			
-			if( count($response) > 0 )
+			if( is_array($response) && count($response) > 0 ){
+				unset( $response['password'] );
+				$_SESSION['user'] = $response[0];
 				print( json_encode($response[0]) );
+			}
 		}
 	
 	} else if( $_GET['t'] == "1" ){
