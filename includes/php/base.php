@@ -121,7 +121,7 @@
 	
 	# ---- Link Handling Functions ----
 	
-	# Gets page name from header informationn (hash map required) send (may e POST or GET).
+	# Gets page name from header informationn (hash map required) send (may a POST or GET).
 	# $header:		Array of header information
 	# return: 		page name or false if no information found
 	#
