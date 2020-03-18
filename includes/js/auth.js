@@ -23,11 +23,11 @@ function register(callback=null){
 		+ "&adress=" + adress;
 	console.log( url );
 	httpRequest( url, function(response){
-		if( response.length > 0 and && callback != null ){			
+		if( response.length > 0 && callback != null ){			
 			console.log( registered );
 			callback( response );
 		}
-	}; );
+	} );
 
 };
 
@@ -41,9 +41,10 @@ function login(){
 	url = url + authurl + "?t=0&phone=" + phone
 		+ "&mail=" + mail
 		+ "&pw=" + pw;
+		
 	httpRequest( url, function(response){
 		if( response.length > 0 ){
-			console.log("login success");
+			console.log( "login successfull" );
 			document.getElementById('err_loginfailed').style.display = 'none';
 		} else {
 			console.error( "login failed" );
