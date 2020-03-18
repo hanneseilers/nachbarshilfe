@@ -1,21 +1,46 @@
 function getBaseURL(){
 	var url = document.location.href;
 	return url.substr( 0, url.lastIndexOf('/')+1 );
-}
+};
 
-function register(){
-}
+function register(callback=null){
+
+	var url = getBaseURL();
+	var	authurl = document.getElementById('authurl').getAttribute('value');
+	var phone = btoa( document.getElementById('phone').value );
+	var mail = btoa( document.getElementById('mail').value );
+	var pw = md5(document.getElementById('pw').value );
+	var name = btoa( document.getElementById('name').value );
+	var plz = btoa( document.getElementById('plz').value );
+	var adress = btoa( document.getElementById('adress').value );
+	
+	url = url + authurl
+		+ "?t=1&phone=" + phone
+		+ "&mail=" + mail
+		+ "&pw=" + pw
+		+ "&name=" + name
+		+ "&plz=" + plz
+		+ "&adress=" + adress;
+	console.log( url );
+	httpRequest( url, function(response){
+		if( response.length > 0 and && callback != null ){			
+			console.log( registered );
+			callback( response );
+		}
+	}; );
+
+};
 
 function login(){
 	var url = getBaseURL();
 	var	authurl = document.getElementById('authurl').getAttribute('value');
-	var phone = document.getElementById('phone').value;
-	var mail = document.getElementById('mail').value;
+	var phone = btoa( document.getElementById('phone').value );
+	var mail = btoa( document.getElementById('mail').value );
 	var pw = md5( document.getElementById('pw').value );
 	
-	url = url + authurl + "?t=0&phone=" + btoa(phone)
-		+ "&mail=" + btoa(mail)
-		+ "&pw=" + btoa(pw);
+	url = url + authurl + "?t=0&phone=" + phone
+		+ "&mail=" + mail
+		+ "&pw=" + pw;
 	httpRequest( url, function(response){
 		if( response.length > 0 ){
 			console.log("login success");
@@ -25,7 +50,7 @@ function login(){
 			document.getElementById('err_loginfailed').style.display = '';
 		}
 	} );
-}
+};
 
 function httpRequest(theUrl, callback)
 {
@@ -40,4 +65,4 @@ function httpRequest(theUrl, callback)
 	xmlHttp.send(null);
 	
 	return true;
-}
+};
