@@ -15,24 +15,60 @@
 		
 		<div class="row">
 			
-			<div class="col-md-10">
+			<div class="col-md-9">
 				<p>
 					<a href=""><button class="btn btn-lg btn-success"><i class="fas fa-plus"></i> Biete Hilfe</button></a>
 					<a href=""><button class="btn btn-lg btn-danger"><i class="fa fa-plus fa-fw"></i> Suche Hilfe</button></a>
 				</p>
 			</div>				
 			
-			<div class="col-md-2">
-				<p>
-					<a href=""><button class="btn btn-lg btn-info"><i class="fa fa-plus fa-fw"></i> Login</button></a>
+			<div class="col-md-3">
+				<form>
+				
+					<b>entweder:</b>
+					<div class="form-group">						
+						<label for="phone">Telefon</label>
+						<input type="tel" class="form-control" id="phone" aria-describedby="Ihre Telefonnummer" placeholder="Ihre Telefonnummer">
+					</div>	
+					
+					<b>oder</b>				
+					<div class="form-group">					
+						<label for="mail">E-Mail Adresse</label>
+						<input type="email" class="form-control" id="mail" aria-describedby="E-Mail Adresse" placeholder="E-Mail Adresse">
+					</div>
+					
+					<hr />
+					
+					<div class="form-group">						
+						<label for="pw">Passwort</label>
+						<input type="password" class="form-control" id="plz" aria-describedby="Passwort" placeholder="Passwort" required>
+					</div>
+					
+					<p>
+					<button class="btn btn-info"><i class="fas fa-sign-in-alt"></i> Login</button>
 				</p>
+				
+				</form>
+				
+				<hr />
+				
 				<p>
-					<a href=""><button class="btn btn-lg btn-info"><i class="fa fa-plus fa-fw"></i> Registrieren</button></a>
+					Noch keinen Account? Jetzt anmelden und helfen!
 				</p>
+				
+				<p>
+					<button class="btn btn-info"><i class="fa fa-plus fa-fw"></i> Anmelden</button>
+				</p>
+				
 			</div>
 				
 		</div>
 	
 	</div>
 
+</div>
+
+<hr />
+
+<div class="d-flex justify-content-center p-3">
 </div>
