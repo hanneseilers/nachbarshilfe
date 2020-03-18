@@ -46,6 +46,7 @@ function login(){
 		if( response.length > 0 ){
 			console.log( "login successfull" );
 			document.getElementById('err_loginfailed').style.display = 'none';
+			logaction.reload();
 		} else {
 			console.error( "login failed" );
 			document.getElementById('err_loginfailed').style.display = '';
@@ -67,3 +68,34 @@ function httpRequest(theUrl, callback)
 	
 	return true;
 };
+
+function update( callback=null){
+
+	var url = getBaseURL();
+	var	authurl = document.getElementById('authurl').getAttribute('value');
+	var phone = btoa( document.getElementById('phone').value );
+	var mail = btoa( document.getElementById('mail').value );
+	var pw = md5(document.getElementById('pw').value );
+	var name = btoa( document.getElementById('name').value );
+	var plz = btoa( document.getElementById('plz').value );
+	var adress = btoa( document.getElementById('adress').value );
+	var id = document.getElementById('userid').getAttribute('value');
+	
+	url = url + authurl
+		+ "?t=2&phone=" + phone
+		+ "&mail=" + mail
+		+ "&pw=" + pw
+		+ "&name=" + name
+		+ "&plz=" + plz
+		+ "&adress=" + adress
+		+ "&userid=" + id;
+		
+	console.log( url );
+	httpRequest( url, function(response){
+		if( response.length > 0 && callback != null ){			
+			console.log( registered );
+			callback( response );
+		}
+	} );
+
+}
