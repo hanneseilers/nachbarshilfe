@@ -1,4 +1,4 @@
-<title>Nachbarshilfe</title>
+<title><?php global $cfg; print $cfg['site']['name'];?></title>
 
 <meta name="author" content="Digital Bastel Bude">
 <meta http-equiv="content-language" content="en">

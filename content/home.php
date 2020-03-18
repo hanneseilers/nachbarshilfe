@@ -1,3 +1,4 @@
+<?php global $cfg; ?>
 <div class="d-flex justify-content-center p-3">
 
 	<div class="container">
@@ -5,7 +6,7 @@
 		<div class="row">
 			<div class="col-md-12 bg-primary text-light p-2">
 				
-				<h1>Nachbarshilfe:</h1>
+				<h1><?php print $cfg['site']['name'];?></h1>
 				
 			</div>
 		</div>
