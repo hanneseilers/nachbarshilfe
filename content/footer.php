@@ -16,3 +16,7 @@
 
 <!--MD5 -->
 <?php getJs('md5.min.js'); ?>
+
+<!-- Load auth plugin -->
+<?php getJs('auth'); ?>
+<span id="authurl" value="<?php global $php; print $php."auth.php" ?>" hidden></span>

@@ -2,10 +2,6 @@
 <div class="alert alert-danger" id = "err_loginfailed" style="display: none;"><small>Login fehlgeschlagen</small></div>
 <hr />
 
-<!-- Load auth plugin -->
-<?php getJs('auth'); ?>
-<span id="authurl" value="<?php global $php; print $php."auth.php" ?>" hidden></span>
-
 <p>				
 	<b>entweder:</b>
 	<div class="form-group">						
