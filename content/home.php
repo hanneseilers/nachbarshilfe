@@ -17,7 +17,7 @@
 			
 			<div class="col-md-9">
 				<p>
-					<a href=""><button class="btn btn-lg btn-success"><i class="fas fa-plus"></i> Biete Hilfe</button></a>
+					<a href="?offer"><button class="btn btn-lg btn-success"><i class="fas fa-plus"></i> Biete Hilfe</button></a>
 					<a href=""><button class="btn btn-lg btn-danger"><i class="fa fa-plus fa-fw"></i> Suche Hilfe</button></a>
 				</p>
 			</div>				
@@ -25,7 +25,7 @@
 			<div class="col-md-3">
 			
 				<?php
-					if( isset($_SESSION['user']) ){
+					if( isset($_SESSION['user']) && validateUserTime() ){
 						include( $content."user-info.php" );
 					} else{
 						global $content;

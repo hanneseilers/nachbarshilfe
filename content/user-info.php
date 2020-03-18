@@ -1,4 +1,14 @@
-<h3><?php print( base64_decode( $_SESSION['user']['name'] ) ); ?></h3>
+<h3><?php print( urldecode(base64_decode( $_SESSION['user']['name'] )) ); ?></h3>
+<small>Noch eingelogged bis
+	<?php 
+		global $cfg;
+		$timestamp = time() + validateUserTime(); 
+		$date = new DateTime();
+		$date->setTimestamp($timestamp);
+		print $date->format( 'd.m. H:i:s' );
+	?><br />
+	<a href="javascript: logout();"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</small>
 <hr />
 
 <!-- Load auth plugin -->
@@ -16,13 +26,13 @@
 	<div class="form-group">						
 		<label for="name">Name*</label>
 		<input type="text" class="form-control" id="name" aria-describedby="Ihr Name" placeholder="Ihr Name"
-			value="<?php print( base64_decode($usr['name']) );?>" required>
+			value="<?php print( urldecode(base64_decode($usr['name'])) );?>" required>
 	</div>
 	
 	<div class="form-group">						
 		<label for="plz">PLZ*</label>
 		<input type="text" class="form-control" id="plz" aria-describedby="Postleitzahl" placeholder="Postleitzahl"
-			value="<?php print( base64_decode($usr['plz']) );?>" required>
+			value="<?php print( $usr['plz'] );?>" required>
 	</div>
 	
 	<div class="form-group">						
@@ -43,28 +53,26 @@
 	<div class="form-group">					
 		<label for="mail">E-Mail Adresse</label>
 		<input type="email" class="form-control" id="mail" aria-describedby="E-Mail Adresse" placeholder="E-Mail Adresse"
-			value="<?php print( base64_decode($usr['mail']) );?>">
+			value="<?php print( base64_decode($usr['email']) );?>">
 	</div>
 	
 	<hr />
 	
 	<div class="form-group">						
 		<label for="adress">Adresse</label>
-		<textarea type="text" class="form-control" id="adress" aria-describedby="Ihre Adresse" placeholder="Ihre Adresse" rows=4
-			value="<?php print( base64_decode($usr['adress']) );?>"></textarea>
+		<textarea type="text" class="form-control" id="adress" aria-describedby="Ihre Adresse" placeholder="Ihre Adresse" rows=4><?php echo( urldecode(base64_decode($usr['adress'])) );?></textarea>
 	</div>	
 		
 </p>	
 <p>
 	
-	<button class="btn btn-info" onClick="login();"><i class="fas fa-save"></i> Spreichern</button>
+	<button class="btn btn-info" onClick="update();"><i class="fas fa-save"></i> Speichern</button>
 	
 	<script>
 		$(document).ready(function(){
 			$(".form-group > input").keypress(function(event){
 				if( event.type == "keypress" && event.which == 13 ){
-					// TODO
-				
+					update();			
 				}
 			});
 		});
