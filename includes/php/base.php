@@ -64,9 +64,7 @@
 		$url = addExtension($url, ".js");
 		
 		if( file_exists($url) ) {
-			print "<script>\n";
-			include( $url );
-			print "\n</script>";
+			print "<script type='text/javascript' src='".$url."'></script>\n";
 		} else err( $err_404, $url );
 	}
 	
