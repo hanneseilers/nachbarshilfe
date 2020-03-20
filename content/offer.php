@@ -1,8 +1,8 @@
 <?php global $cfg; ?>
 <div class="d-flex justify-content-center p-3">
+<span id="offerurl" value="<?php global $php; print $php."offer.php" ?>" hidden></span>
 
 	<div class="container">
-	<form action="<?php url('addOffer'); ?>" method="get">
 		
 		<div class="row">
 			<div class="col-md-8">
@@ -29,8 +29,8 @@
 					</div>
 					
 					<div class="form-group">						
-					<label for="adress">Beschreibung</label>
-					<textarea type="text" class="form-control" id="adress" aria-describedby="Ihre Text" placeholder="Beschreibung (optional)" rows=4></textarea>
+					<label for="description">Beschreibung</label>
+					<textarea type="text" class="form-control" id="description" aria-describedby="Ihre Text" placeholder="Beschreibung (optional)" rows=4></textarea>
 				</div>	
 					
 				</div>
@@ -39,7 +39,7 @@
 			
 			<div class="col-md-4">
 				<p>
-					<button class="btn btn-lg btn-success" type="submit"><i class="fas fa-plus"></i> Hilfe anbieten</button>
+					<a href="javascript: addOffer();"><button class="btn btn-lg btn-success"><i class="fas fa-plus"></i> Hilfe anbieten</button></a>
 				</p>
 				<p>
 					<i class="fas fa-exclamation"></i> Bitte biete nur Hilfe an, die du auch wirklich leisten kannst. Übernehm dich nicht! Hilf lieber nur ein wenig, dafü&uuml;r aber verl&aum,l;sslich.
@@ -119,13 +119,29 @@
 				</div>	
 				
 				<div class="mt-3"></div>
+				
+				<?php
+					} else {
+						$usr = $_SESSION['user'];
+				 ?>
+					<span id="userid" value="<?php print $usr['id'] ?>" hidden></span>
 				<?php } ?>
 				
 			</div>			
 			
 		</div>
 		
-	</form>
+		<script>
+			$(document).ready(function(){
+				$(".form-group > input").keypress(function(event){
+					if( event.type == "keypress" && event.which == 13 )
+						addOffer();
+				});
+			});
+		</script>
+		
+		<?php getJs('addOffer.js'); ?>	
+
 	</div>
 
 </div>

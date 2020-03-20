@@ -22,6 +22,8 @@
 	</head>
 	<body>
 	
+		<?php get( "log" ); ?>
+	
 		<?php get( "nav" ); ?>
 
 		<?php

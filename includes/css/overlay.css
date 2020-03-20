@@ -1,0 +1,15 @@
+.overlay{
+
+	position: fixed;
+	width: 98%;
+	top: 1%;
+	left: 1%;
+	right: 1%;
+	background-color: rgba(0,0,0,0);
+	z-index: 999;
+
+}
+
+div[id^="log_"]{
+	display: none;
+}
