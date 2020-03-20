@@ -180,7 +180,7 @@
 	function validateUserTime(){
 
 		global $cfg;
-		if( isset($_SESSION['user']) ){
+		if( isset($_SESSION['user']) && !is_null($_SESSION['user']) ){
 			if( (time() - $_SESSION['user']['login_timestamp']) < $cfg['permissions']['max_login_time'])
 				return $cfg['permissions']['max_login_time'] - (time() - $_SESSION['user']['login_timestamp']);
 		}

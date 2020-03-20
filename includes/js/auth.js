@@ -10,9 +10,9 @@ function _register(callback=null){
 	var phone = btoa( document.getElementById('phone').value );
 	var mail = btoa( document.getElementById('mail').value );
 	var pw = md5(document.getElementById('pw').value );
-	var name = btoa( document.getElementById('name').value );
+	var name = btoa( encodeURI(document.getElementById('name').value) );
 	var plz = btoa( document.getElementById('plz').value );
-	var adress = btoa( document.getElementById('adress').value );
+	var adress = btoa( encodeURI(document.getElementById('adress').value) );
 	
 	url = url + authurl
 		+ "?t=1&phone=" + phone
@@ -21,10 +21,13 @@ function _register(callback=null){
 		+ "&name=" + name
 		+ "&plz=" + plz
 		+ "&adress=" + adress;
-	console.log( url );
+	//console.log( url );
+	
 	httpRequest( url, function(response){
 		if( response.length > 0 && callback != null ){
 			callback( response );
+		} else {
+			alert( "Registrierung fehlgeschlagen!");
 		}
 	} );
 
@@ -32,7 +35,7 @@ function _register(callback=null){
 
 function register(){
 	_register( function(response){
-		console.log( response );
+		console.log( "registered user" );
 	});
 }
 
@@ -52,11 +55,12 @@ function login(reload=true){
 		if( response.length > 0 ){
 			console.log( "login successfull" );
 			document.getElementById('err_loginfailed').style.display = 'none';
-			if( reload )
+			if( reload ){
+				log_success( "Login erfolgreich. Bitte warten ..." );
 				location.reload();
+			}
 		} else {
-			console.error( "login failed" );
-			document.getElementById('err_loginfailed').style.display = '';
+			log_err( "Login fehlgeschlagen!" );
 		}
 	} );
 };
@@ -80,9 +84,9 @@ function _update( callback=null){
 		+ "&name=" + name
 		+ "&plz=" + plz
 		+ "&adress=" + adress
-		+ "&userid=" + id;
-		
-	console.log( url );
+		+ "&userid=" + id;		
+	//console.log( url );
+	
 	httpRequest( url, function(response){
 		if( response.length > 0 && callback != null ){			
 			callback( response );
@@ -103,9 +107,9 @@ function logout(reload=true){
 	var	authurl = document.getElementById('authurl').getAttribute('value');
 	
 	url = url + authurl
-		+ "?t=-1";
-		
-	console.log( url );
+		+ "?t=-1";		
+	//console.log( url );
+	
 	httpRequest( url, function(){
 		console.log( "logged out" );
 		
