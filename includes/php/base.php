@@ -188,3 +188,88 @@
 		return false;
 
 	}
+	
+	
+	// TODO: Annotation
+	function getHTMLTable($data, $keys){
+	
+		$dom = new DOMDocument('1.0');
+		$n = count($keys);		
+		
+	
+		// iterate trough rows
+		foreach( $data as $row ){
+		
+			$tr = $dom->createElement( 'tr' );
+			$dom->appendChild( $tr );
+			
+			// iterate trough keys
+			for( $i=0; $i<$n; $i++ ){
+			
+				$key = $keys[$i];
+				$callable = null;
+				if( is_array($key) ){
+					$callable = $key['callable'];
+					$key = $key['key'];
+				}
+				
+				$value = $row[ $key ];
+				if( $callable != null ){
+					$value = $callable( $value );
+				}
+			
+				$td = null;
+				
+				try{
+					if( is_string($value) ){
+						$td = $dom->createElement( 'td' );
+						appendHTML( $td, $value );						
+					} else {
+						$td = $dom->createElement( 'td', $value );
+					}
+					
+				
+					$dom->appendChild( $td );
+				} catch(TypeError $ex){
+					var_dump( $ex );
+				}
+			
+			}
+		
+		}
+		
+		return $dom;
+	
+	}
+	
+	
+	// TODO: Annotation
+	function getHTMLProgressBar($progress=0){
+	
+		if( $progress != null ){	
+		
+			if( !is_string($progress) ){
+				$progress = strval($progress);
+			}
+			
+			$dom = "<div class='progress'>\n";
+			$dom .= "\t<div class='progress-bar' role='progressbar' style='width: ".$progress."%' aria-valuenow='".$progress."' aria-valuemin='0' aria-valuemax='100'></div>\n";
+			$dom .= "</div>";
+		
+			return $dom;
+			
+		}
+		
+		return "";
+	
+	}
+	
+	// TODO: Annotation
+	function appendHTML(DOMNode $parent, $source) {
+		$tmpDoc = new DOMDocument();
+		$tmpDoc->loadHTML($source);
+		foreach ($tmpDoc->getElementsByTagName('body')->item(0)->childNodes as $node) {
+			$node = $parent->ownerDocument->importNode($node, true);
+			$parent->appendChild($node);
+		}
+	}
