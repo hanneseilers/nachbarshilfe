@@ -33,7 +33,7 @@ function _addOffer(userid=null){
 		var url = getBaseURL();
 		var	offerurl = document.getElementById('offerurl').getAttribute('value');
 		var amount = Number( document.getElementById('amount').value );
-		var text = btoa(document.getElementById('description').value);
+		var text = btoa( encodeURI(document.getElementById('description').value) );
 		
 		url = url + offerurl + "?t=0&user=" + userid
 			+ "&amount=" + amount
