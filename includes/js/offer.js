@@ -1,16 +1,16 @@
-function loadOffers(plz=null){
+function loadOffers(element="offersBody", plz=null){
 	var	offerurl = document.getElementById('offerurl').getAttribute('value');
 	var request = "";
 	
 	if( plz != null ){
-		request = "&plz=" + plz;
+		request = "&user=1&plz=" + plz;
 	} else {
 		request = "&user=1";
 	}
 	
 	var url = offerurl + "?t=4" + request;
-	console.log(url);
-	$("#offersBody").load( url );
+	//console.log(url);
+	$(element).load( url );
 }
 
 function addOffer(){
@@ -22,8 +22,6 @@ function addOffer(){
 		console.log("registering new user");
 		_register(function( response ){
 		
-			console.log("done");
-			console.log(response);
 			if( (typeof response) == "string" && response.length > 0  ){
 			
 				console.log(response);

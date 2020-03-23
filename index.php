@@ -19,6 +19,8 @@
 	
 		<?php get("header"); ?>
 		
+		<link rel="shortcut icon" href="favicon.ico" />
+		
 	</head>
 	<body>
 	

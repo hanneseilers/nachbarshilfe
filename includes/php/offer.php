@@ -65,6 +65,7 @@ function getOffers($print=false, $loggedinuser=false, $plz=Null){
 		];
 		$where = [ 'ORDER' => ['last_updated' => 'DESC']];
 		$join = null;
+
 		if( $plz != null && $loggedinuser != false && $loggedinuser != null ){
 			$where = [
 				'user[!]' => $loggedinuser,

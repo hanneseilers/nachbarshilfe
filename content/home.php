@@ -1,7 +1,19 @@
 <?php global $cfg; ?>
 
-<span id="offerurl" value="<?php global $php; print $php."offer.php" ?>" hidden></span>
 
+<?php
+	if( isset($_SESSION['user']) && validateUserTime() ){
+	
+		getJs('offer.js');	
+		getJs('user.js');	
+?>
+
+	<span id="userurl" value="<?php global $php; print $php."user.php" ?>" hidden></span>
+	<span id="offerurl" value="<?php global $php; print $php."offer.php" ?>" hidden></span>
+
+<?php
+}
+?>
 <div class="d-flex justify-content-center p-3">
 
 	<div class="container">
@@ -31,7 +43,7 @@
 					if( isset($_SESSION['user']) && validateUserTime() ){
 				?>
 				<!-- ACCORDION START -->
-				<?php getJs('offer.js'); ?>	
+				
 				<div id="accordion">
 				
 					<div class="card">
@@ -43,9 +55,9 @@
 							</h5>
 						</div>
 
-						<div id="offers" class="collapse show" aria-labelledby="offersHead" data-parent="#accordion">
+						<div id="offers" class="collapse" aria-labelledby="offersHead" data-parent="#accordion">
 							<script>
-								$(document).ready( function(){ loadOffers(); } );									
+								$(document).ready( function(){ loadOffers("#offersBody"); } );									
 							</script>
 							<div class="card-body"></div>
 								<table class="table">
@@ -81,7 +93,7 @@
 						<div class="card-header" id="tasksHead">
 							<h5 class="mb-0">
 								<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#tasks" aria-expanded="true" aria-controls="tasks">
-									<i class="event-toggle fa fa-fw fa-chevron-down" id="tasksToggle"></i> Meine Aufgaben
+									<i class="event-toggle fa fa-fw fa-chevron-down" id="tasksToggle"></i> <i class="fas fa-tasks"></i> Meine Aufgaben
 								</button>
 							</h5>
 						</div>
@@ -101,17 +113,21 @@
 				<div id="accordion">
 				
 					<div class="card">
-						<div class="card-header" id="offersHead">
+						<div class="card-header" id="offersPLZHead">
 							<h5 class="mb-0">
-								<button class="btn btn-link collapsed text-success" data-toggle="collapse" data-target="#offers" aria-expanded="false" aria-controls="offers">
-<i class="event-toggle fa fa-fw fa-chevron-down" id="offersToggle"></i> Anfragen in der Nähe
+								<button class="btn btn-link collapsed text-success" data-toggle="collapse" data-target="#offersPLZ" aria-expanded="false" aria-controls="offersPLZ">
+<i class="event-toggle fa fa-fw fa-chevron-down" id="offersToggle"></i> <i class="fas fa-search"></i> Anfragen in der N&auml;he
 								</button>
 							</h5>
 						</div>
 
-						<div id="offers" class="collapse show" aria-labelledby="offersHead" data-parent="#accordion">
+						<div id="offersPLZ" class="collapse" aria-labelledby="offersPLZHead" data-parent="#accordion">
 							<script>
-								//$(document).ready(loadOffers);									
+								$(document).ready( function(){									
+									getUserData( function(userdata)
+										{ loadOffers("#users_plz_offersBody", userdata['plz'] ); }
+									);						
+								});									
 							</script>
 							<div class="card-body"></div>
 								<table class="table">
@@ -122,7 +138,7 @@
 											<th>Text</th>
 										</tr>
 									</thead>
-									<tbody id="offersBody">
+									<tbody id="users_plz_offersBody">
 									</tbody>
 								</table>
 						</div>
