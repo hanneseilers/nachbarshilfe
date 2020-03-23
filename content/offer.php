@@ -42,7 +42,7 @@
 					<a href="javascript: addOffer();"><button class="btn btn-lg btn-success"><i class="fas fa-plus"></i> Hilfe anbieten</button></a>
 				</p>
 				<p>
-					<i class="fas fa-exclamation"></i> Bitte biete nur Hilfe an, die du auch wirklich leisten kannst. Übernehm dich nicht! Hilf lieber nur ein wenig, dafü&uuml;r aber verl&aum,l;sslich.
+					<i class="fas fa-exclamation"></i> Bitte biete nur Hilfe an, die du auch wirklich leisten kannst. Übernehm dich nicht! Hilf lieber nur ein wenig, daf&uuml;r aber verl&auml;sslich.
 				</p>
 				<p>
 					<small>Falls du noch nicht angemeldet bist, f&uuml;ll einfach das Anmeldformular mit aus.</small>
