@@ -45,20 +45,57 @@ function delete($id=null){
 	
 };
 
-function getOffers($print=false, $loggedinuser=false){
+function getOffers($print=false, $loggedinuser=false, $plz=Null){
 
 	if( validateUserTime() ){
 
 		global $db;
-		$where = [ 'ORDER' => ['last_updated' => 'ASC']];
-		if( $loggedinuser != false && $loggedinuser != null ){
+		$select = [
+			'offers.id',
+			'offers.user',
+			'offers.amount',
+			'offers.text',
+			'offers.last_updated',
+			'users.plz',
+			'users.name',
+			'users.adress',
+			'users.email',
+			'users.phone',
+			'users.valid'
+		];
+		$where = [ 'ORDER' => ['last_updated' => 'DESC']];
+		$join = null;
+		if( $plz != null && $loggedinuser != false && $loggedinuser != null ){
+			$where = [
+				'user[!]' => $loggedinuser,
+				'plz[~]' => $plz,
+				'ORDER' => ['last_updated' => 'DESC']
+			];
+			$join = [
+				'[><]users' => ['user' => 'id']
+			];
+		} elseif( $loggedinuser != false && $loggedinuser != null ){
 			$where = [
 				'user' => $loggedinuser,
 				'ORDER' => ['last_updated' => 'DESC']
 			];
+			$select = "*";
+		} elseif( $plz != null ){
+			$where = [
+				'plz[~]' => $plz,
+				'ORDER' => ['offers.last_updated' => 'DESC']
+			];
+			$join = [
+				'[><]users' => ['user' => 'id']
+			];
+			
 		}
 			
-		$response = $db->select('offers', "*", $where);
+		if( $join != null ){
+			$response = $db->select('offers', $join, $select, $where);
+		} else {
+			$response = $db->select('offers', "*", $where);
+		}
 		
 		if( $response != null && is_array($response) && count($response) > 0 ){
 			if( $print ){
@@ -120,16 +157,6 @@ function getOffer($id=null){
 
 }
 
-function getOffersPLZ($plz=Null){
-
-	if( validateUserTime() && $plz != null ){
-	
-		// TODO
-	
-	}
-
-}
-
 
 if( array_key_exists('t', $_GET) ){
 
@@ -150,20 +177,32 @@ if( array_key_exists('t', $_GET) ){
 	if( $_GET['t'] == "0" ){	
 		// ADD
 		add( $user, $amount, $text );
-	} else if( $_GET['t'] == "1" ){	
+	} elseif( $_GET['t'] == "1" ){	
 		// UPDATE
 		update( $id, $user, $amount, $text );
-	} else if( $_GET['t'] == "2"){
+	} elseif( $_GET['t'] == "2"){
 		// DELETE
 		delete( $id );
-	} else if( $_GET['t'] == "3"){
+	} elseif( $_GET['t'] == "3"){
 		// SHOW OFFERS
 		getOffers(true);
-	} else if( $_GET['t'] == "4"){
+	} elseif( $_GET['t'] == "4"){
 		// SHOW OFFERS
 		if( isset($_SESSION['user']) ){
-			getOffers(true, $_SESSION['user']['id']);
+			if( isset($_GET['user']) && isset($_GET['plz']) ){
+				getOffers(true, $_SESSION['user']['id'], $_GET['plz']);
+			} elseif( isset($_GET['user']) ){
+				getOffers(true, $_SESSION['user']['id']);
+			} elseif( isset($_GET['plz']) ){
+				getOffers(true, false, $_GET['plz']);
+			} else {
+				getOffers(true);
+			}
 		}
+	}
+	
+	if( isset($_SESSION['user']) ){
+		updateUserTime();
 	}
 
 }

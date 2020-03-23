@@ -45,7 +45,7 @@
 
 						<div id="offers" class="collapse show" aria-labelledby="offersHead" data-parent="#accordion">
 							<script>
-								$(document).ready(loadOffers);									
+								$(document).ready( function(){ loadOffers(); } );									
 							</script>
 							<div class="card-body"></div>
 								<table class="table">
@@ -89,6 +89,42 @@
 							<div class="card-body">
 								TASKS
 							</div>
+						</div>
+					</div>
+					
+				</div>
+				<!-- ACCORDION END -->
+				
+				<hr />
+				
+				<!-- ACCORDION START -->
+				<div id="accordion">
+				
+					<div class="card">
+						<div class="card-header" id="offersHead">
+							<h5 class="mb-0">
+								<button class="btn btn-link collapsed text-success" data-toggle="collapse" data-target="#offers" aria-expanded="false" aria-controls="offers">
+<i class="event-toggle fa fa-fw fa-chevron-down" id="offersToggle"></i> Anfragen in der Nähe
+								</button>
+							</h5>
+						</div>
+
+						<div id="offers" class="collapse show" aria-labelledby="offersHead" data-parent="#accordion">
+							<script>
+								//$(document).ready(loadOffers);									
+							</script>
+							<div class="card-body"></div>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>aktiv seit ? Stunden</th>
+											<th>Menge</th>
+											<th>Text</th>
+										</tr>
+									</thead>
+									<tbody id="offersBody">
+									</tbody>
+								</table>
 						</div>
 					</div>
 					

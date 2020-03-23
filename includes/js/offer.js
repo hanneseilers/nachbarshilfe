@@ -1,6 +1,16 @@
-function loadOffers(){
+function loadOffers(plz=null){
 	var	offerurl = document.getElementById('offerurl').getAttribute('value');
-	$("#offersBody").load( offerurl + "?t=4" );		
+	var request = "";
+	
+	if( plz != null ){
+		request = "&plz=" + plz;
+	} else {
+		request = "&user=1";
+	}
+	
+	var url = offerurl + "?t=4" + request;
+	console.log(url);
+	$("#offersBody").load( url );
 }
 
 function addOffer(){
