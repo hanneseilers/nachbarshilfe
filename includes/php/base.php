@@ -273,3 +273,14 @@
 			$parent->appendChild($node);
 		}
 	}
+	
+	// TODO: Annotation
+	function getHTMLLink($link=null, $text=null, $target=null){
+		if( $link != null && $text != null ){
+			if( $target != null ){
+				return "<a href='".$link."', target='".$target."'>".$text."</a>";
+			} else {
+				return "<a href='".$link."'>".$text."</a>";
+			}
+		}
+	}

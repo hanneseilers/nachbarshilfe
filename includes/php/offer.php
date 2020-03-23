@@ -30,81 +30,101 @@ function add($user=null, $amount=null, $text=null){
 };
 
 function update($id=null, $user=null, $amount=null, $text=null){
+	// TODO
 };
 
 function delete($id=null){
-}
+	
+	if( validateUserTime() && $id != null && getOffer($id) != null ){
+	
+		global $db;
+		$db->delete( 'offers', ['id' => $id] );
+		print "true";
+			
+	}
+	
+};
 
 function getOffers($print=false, $loggedinuser=false){
 
-	global $db;
-	$where = [ 'ORDER' => ['last_updated' => 'ASC']];
-	if( $loggedinuser != false && $loggedinuser != null ){
-		$where = [
-			'user' => $loggedinuser,
-			'ORDER' => ['last_updated' => 'DESC']
-		];
-	}
-		
-	$response = $db->select('offers', "*", $where);
-	
-	if( $response != null && is_array($response) && count($response) > 0 ){
-		if( $print ){
-			print getHTMLTable( $response, [
-				'0' => [
-					'key' => 'last_updated',
-					'callable' => function($data){
-						return round( (time() - $data) / 3600, 2);
-					}
-				],
-				'1' => [
-					'key' => 'amount',
-					'callable' => function($data){
-						return getHTMLProgressBar($data);
-					}
-				],
-				'2' => [
-					'key' => 'text',
-					'callable' => function($data){
-						$data = urldecode(base64_decode( $data ));
-						return (strlen($data) > 0 ? $data : "-");
-					}
-				]
-			] )->saveHTML();
+	if( validateUserTime() ){
+
+		global $db;
+		$where = [ 'ORDER' => ['last_updated' => 'ASC']];
+		if( $loggedinuser != false && $loggedinuser != null ){
+			$where = [
+				'user' => $loggedinuser,
+				'ORDER' => ['last_updated' => 'DESC']
+			];
 		}
-		return $response;
-	}
-	
+			
+		$response = $db->select('offers', "*", $where);
+		
+		if( $response != null && is_array($response) && count($response) > 0 ){
+			if( $print ){
+				print getHTMLTable( $response, [
+					'0' => [
+						'key' => 'last_updated',
+						'callable' => function($data){
+							return round( (time() - $data) / 3600, 2);
+						}
+					],
+					'1' => [
+						'key' => 'amount',
+						'callable' => function($data){
+							return getHTMLProgressBar($data);
+						}
+					],
+					'2' => [
+						'key' => 'text',
+						'callable' => function($data){
+							$data = urldecode(base64_decode( $data ));
+							return (strlen($data) > 0 ? $data : "-");
+						}
+					],
+					'3' => [
+						'key' => 'id',
+						'callable' => function($data){
+							return getHTMLLink("javascript: deleteOffer(".$data.");", "<i class='fas fa-trash'></i>");
+						}
+					]
+				] )->saveHTML();
+			}
+			return $response;
+		}
+		
+	}	
 	return null;
 
 }
 
 function getOffer($id=null){
 
-	return "test";
+	if( validateUserTime() ){
 
-	if( $id != null ){
-	
-		global $db;
-		$response = $db->debug()->select('offers', "*", [
-			'id' => intval($id)
-		]);
+		if( $id != null ){
 		
-		if( $response != null && is_array($response) && count($response) > 0 ){
-			return $response[0];
-		} 	
+			global $db;
+			$response = $db->select('offers', "*", [
+				'id' => intval($id)
+			]);
 			
-	}
+			if( $response != null && is_array($response) && count($response) > 0 ){
+				return $response[0];
+			} 	
+				
+		}
 	
+	}
 	return null;
 
 }
 
 function getOffersPLZ($plz=Null){
 
-	if( $plz != null ){
+	if( validateUserTime() && $plz != null ){
 	
-	
+		// TODO
 	
 	}
 

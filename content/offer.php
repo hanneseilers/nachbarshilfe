@@ -140,7 +140,7 @@
 			});
 		</script>
 		
-		<?php getJs('addOffer.js'); ?>	
+		<?php getJs('offer.js'); ?>	
 
 	</div>
 

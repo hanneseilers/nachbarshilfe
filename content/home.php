@@ -31,6 +31,7 @@
 					if( isset($_SESSION['user']) && validateUserTime() ){
 				?>
 				<!-- ACCORDION START -->
+				<?php getJs('offer.js'); ?>	
 				<div id="accordion">
 				
 					<div class="card">
@@ -44,10 +45,7 @@
 
 						<div id="offers" class="collapse show" aria-labelledby="offersHead" data-parent="#accordion">
 							<script>
-								$(document).ready(function(){
-									var	offerurl = document.getElementById('offerurl').getAttribute('value');
-									$("#offersBody").load( offerurl + "?t=4" );
-								});									
+								$(document).ready(loadOffers);									
 							</script>
 							<div class="card-body"></div>
 								<table class="table">

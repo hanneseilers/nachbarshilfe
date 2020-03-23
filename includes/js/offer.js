@@ -1,3 +1,8 @@
+function loadOffers(){
+	var	offerurl = document.getElementById('offerurl').getAttribute('value');
+	$("#offersBody").load( offerurl + "?t=4" );		
+}
+
 function addOffer(){
 
 	// check if to register first
@@ -43,6 +48,26 @@ function _addOffer(userid=null){
 		httpRequest( url, function(response){
 			if( response.length > 0 ){
 				log_success( "Angebot hinzugefügt." );
+			}
+		} );
+		
+	}
+
+}
+
+function deleteOffer(id=null){
+
+	if( id != null ){
+	
+		var url = getBaseURL();
+		var	offerurl = document.getElementById('offerurl').getAttribute('value');
+		url = url + offerurl + "?t=2&id=" + id;
+		//console.log(url);
+		
+		httpRequest( url, function(response){
+			if( response.length > 0 ){
+				log_success( "Eintrag gelöscht" );
+				loadOffers();
 			}
 		} );
 		
