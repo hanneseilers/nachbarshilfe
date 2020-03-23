@@ -4,12 +4,14 @@
 <?php
 	if( isset($_SESSION['user']) && validateUserTime() ){
 	
-		getJs('offer.js');	
-		getJs('user.js');	
+		getJs('user.js');
+		getJs('offer.js');
+		getJs('request.js');
 ?>
 
 	<span id="userurl" value="<?php global $php; print $php."user.php" ?>" hidden></span>
 	<span id="offerurl" value="<?php global $php; print $php."offer.php" ?>" hidden></span>
+	<span id="requesturl" value="<?php global $php; print $php."request.php" ?>" hidden></span>
 
 <?php
 }
@@ -33,7 +35,7 @@
 			<div class="col-md-9">
 				<p>
 					<a href="?offer"><button class="btn btn-lg btn-success"><i class="fas fa-plus"></i> Biete Hilfe</button></a>
-					<a href=""><button class="btn btn-lg btn-danger"><i class="fa fa-plus fa-fw"></i> Suche Hilfe</button></a>
+					<a href="?request"><button class="btn btn-lg btn-danger"><i class="fa fa-plus fa-fw"></i> Suche Hilfe</button></a>
 				</p>
 				
 				<hr />
@@ -83,8 +85,21 @@
 							</h5>
 						</div>
 						<div id="requests" class="collapse" aria-labelledby="reqestsHead" data-parent="#accordion">
+							<script>
+								$(document).ready( function(){ loadRequests("#requestsBody"); } );									
+							</script>
 							<div class="card-body">
-								REQUESTS
+								<table class="table">
+									<thead>
+										<tr>
+											<th>aktiv seit ? Stunden</th>
+											<th>Menge</th>
+											<th>Text</th>
+										</tr>
+									</thead>
+									<tbody id="requestsBody">
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
