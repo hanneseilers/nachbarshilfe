@@ -1,4 +1,4 @@
-function loadOffers(element="offersBody", plz=null){
+function loadOffers(element="#offersBody", plz=null){
 	var	offerurl = document.getElementById('offerurl').getAttribute('value');
 	var request = "";
 	
