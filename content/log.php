@@ -3,24 +3,37 @@
 	<div class="alert alert-info" id="log_info" onClick="log_off('log_info');">
 	</div>
 	
-	<div class="alert alert-warning" id="log_warning"onClick="log_off('log_warning');">
+	<div class="alert alert-warning" id="log_warning" onClick="log_off('log_warning');">
 	</div>
 	
-	<div class="alert alert-danger" id="log_danger"onClick="log_off('log_danger');">
+	<div class="alert alert-danger" id="log_danger" onClick="log_off('log_danger');">
 	</div>
 	
-	<div class="alert alert-success" id="log_success"onClick="log_off('log_success');">
+	<div class="alert alert-success" id="log_success" onClick="log_off('log_success');">
 	</div>
 	
 </div>
 
 <script>	
 	function log_on(id="") {
-	  document.getElementById(id).style.display = "block";
+		var div = document.getElementById(id);
+		div.style.display = "block";
+		
+		if( div.getAttribute("timeid") != null ){
+			var el = document.getElementById(id);
+			var tmp_timerid = el.getAttribute("timeid");
+			clearTimeout(tmp_timerid);
+			el.removeAttribute("timerid");
+		}
+				
+		var timerid = setTimeout( log_off, 3000, id );
+		
 	}
 
 	function log_off(id='') {
-	  document.getElementById(id).style.display = "none";
+		var div = document.getElementById(id);
+		div.style.display = "none";
+		div.removeAttribute("timerid");
 	}
 	
 	function log_info(msg=""){
