@@ -12,7 +12,7 @@
 <hr />
 
 <!-- Load auth plugin -->
-<?php getJs('auth'); ?>
+<?php getJs('auth,js'); ?>
 <span id="authurl" value="<?php global $php; print $php."auth.php" ?>" hidden></span>
 
 <p>

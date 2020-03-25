@@ -16,11 +16,11 @@ function logout(){
 // Login existing user
 function login($print=true){
 
-	if( array_key_exists('phone', $_GET) && array_key_exists('mail', $_GET) && array_key_exists('pw', $_GET) ){
+	if( array_key_exists('phone', $_REQUEST) && array_key_exists('mail', $_REQUEST) && array_key_exists('pw', $_REQUEST) ){
 		
-		$phone = $_GET['phone'];
-		$mail = $_GET['mail'];
-		$pw = $_GET['pw'];		
+		$phone = $_REQUEST['phone'];
+		$mail = $_REQUEST['mail'];
+		$pw = $_REQUEST['pw'];		
 		$response = getUser( $phone, $mail, $pw );
 		
 		if( $response ){
@@ -41,38 +41,44 @@ function login($print=true){
 function register($ret=true){
 
 	if(
-	array_key_exists('phone', $_GET) &&
-	array_key_exists('mail', $_GET) &&
-	array_key_exists('pw', $_GET) &&
-	array_key_exists('name', $_GET) &&
-	array_key_exists('plz', $_GET) &&
-	array_key_exists('pw', $_GET) &&
-	array_key_exists('adress', $_GET) ){
+	array_key_exists('phone', $_REQUEST) &&
+	array_key_exists('mail', $_REQUEST) &&
+	array_key_exists('pw', $_REQUEST) &&
+	array_key_exists('name', $_REQUEST) &&
+	array_key_exists('plz', $_REQUEST) &&
+	array_key_exists('pw', $_REQUEST) &&
+	array_key_exists('adress', $_REQUEST) ){
 	
-		// request existing users
-		$phone = $_GET['phone'];
-		$mail = $_GET['mail'];
-		$pw = $_GET['pw'];		
+		global $db;
+	
+		// request existing user
+		$phone = $_REQUEST['phone'];
+		$mail = $_REQUEST['mail'];
+		$pw = $_REQUEST['pw'];		
 		$response = getUser($phone, $mail);
 		
 		
 		if( !$response ){
 			
 			if(
-				isset($_GET['name']) &&
-				isset($_GET['plz']) &&
-				isset($_GET['pw']) &&
-				(isset($_GET['phone']) || isset($_GET['mail']))
+				isset($_REQUEST['name']) &&
+				isset($_REQUEST['plz']) &&
+				isset($_REQUEST['pw']) &&
+				(isset($_REQUEST['phone']) || isset($_REQUEST['mail'])) &&
+				strlen(trim($_REQUEST['name'])) &&
+				strlen(trim($_REQUEST['plz'])) &&
+				strlen(trim($_REQUEST['pw'])) >= 6 &&
+				( strlen(trim($_REQUEST['phone'])) || strlen(trim($_REQUEST['mail'])) )
 			){
 			
 				// no existing user -> add new one
 				$response = $db->insert('users', [
-					"name" => $_GET['name'],
-					"adress" => $_GET['adress'],
-					"plz" => base64_decode($_GET['plz']),
-					"email" => $_GET['mail'],
-					"phone" => $_GET['phone'],
-					"password" => $_GET['pw'],
+					"name" => $_REQUEST['name'],
+					"adress" => $_REQUEST['adress'],
+					"plz" => base64_decode($_REQUEST['plz']),
+					"email" => $_REQUEST['mail'],
+					"phone" => $_REQUEST['phone'],
+					"password" => $_REQUEST['pw'],
 					"last_updated" => time(),
 					"login_timestamp" => time()
 				]);
@@ -81,7 +87,7 @@ function register($ret=true){
 				if( $id != null ){
 				
 					// login user
-					$_GET['t'] = "0";
+					$_REQUEST['t'] = "0";
 					login();
 					if( $ret ){
 						return $id;
@@ -103,20 +109,25 @@ function register($ret=true){
 function update(){
 
 	if(
-		array_key_exists('phone', $_GET) &&
-		array_key_exists('mail', $_GET) &&
-		array_key_exists('pw', $_GET) &&
-		array_key_exists('name', $_GET) &&
-		array_key_exists('plz', $_GET) &&
-		array_key_exists('pw', $_GET) &&
-		array_key_exists('adress', $_GET) &&
-		array_key_exists('userid', $_GET) &&
+		array_key_exists('phone', $_REQUEST) &&
+		array_key_exists('mail', $_REQUEST) &&
+		array_key_exists('pw', $_REQUEST) &&
+		array_key_exists('name', $_REQUEST) &&
+		array_key_exists('plz', $_REQUEST) &&
+		array_key_exists('pw', $_REQUEST) &&
+		array_key_exists('adress', $_REQUEST) &&
+		array_key_exists('userid', $_REQUEST) &&
+		strlen(trim($_REQUEST['name'])) &&
+		strlen(trim($_REQUEST['plz'])) &&
+		( strlen(trim($_REQUEST['phone'])) || strlen(trim($_REQUEST['mail'])) ) &&
 		validateUserTime() ){
+		
+			global $db;
 			
 			// request existing users
-			$phone = $_GET['phone'];
-			$mail = $_GET['mail'];
-			$pw = $_GET['pw'];
+			$phone = $_REQUEST['phone'];
+			$mail = $_REQUEST['mail'];
+			$pw = $_REQUEST['pw'];
 			
 			if( $pw.length <= 0 ){
 				$pw = $_SESSION['user']['password'];
@@ -128,19 +139,19 @@ function update(){
 				
 				// existing user
 				$response = $db->update('users', [
-					"name" => $_GET['name'],
-					"adress" => $_GET['adress'],
-					"plz" => base64_decode($_GET['plz']),
-					"email" => $_GET['mail'],
-					"phone" => $_GET['phone'],
-					"password" => $_GET['pw'],
+					"name" => $_REQUEST['name'],
+					"adress" => $_REQUEST['adress'],
+					"plz" => base64_decode($_REQUEST['plz']),
+					"email" => $_REQUEST['mail'],
+					"phone" => $_REQUEST['phone'],
+					"password" => $_REQUEST['pw'],
 					"last_updated" => time(),
 					"login_timestamp" => time()
-				], ["id" => $_GET['userid']]);
+				], ["id" => $_REQUEST['userid']]);
 				
 				if( $response ){
 					// login user
-					$_GET['t'] = "0";
+					$_REQUEST['t'] = "0";
 					login();
 				}
 				
@@ -189,15 +200,15 @@ function getUser($phone="", $mail="", $pw=null, $id=null){
 }
 
 
-if( array_key_exists('t', $_GET) ){
+if( array_key_exists('t', $_REQUEST) ){
 
-	if( $_GET['t'] == "0" ){	
+	if( $_REQUEST['t'] == "0" ){	
 		// LOGIN
 		login();
-	} else if( $_GET['t'] == "1" ){	
+	} else if( $_REQUEST['t'] == "1" ){	
 		// REGISTER
 		print register();
-	} else if( $_GET['t'] == "2"){
+	} else if( $_REQUEST['t'] == "2"){
 		// UPDATE
 		update();
 	} else {

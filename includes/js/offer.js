@@ -1,16 +1,19 @@
 function loadOffers(element="#offersBody", plz=null){
 	var	offerurl = document.getElementById('offerurl').getAttribute('value');
-	var request = "";
+	var data = { 't': 4 };
 	
 	if( plz != null ){
-		request = "&user=1&plz=" + plz;
+		dataPush( data, {
+			'user':  1,
+			'plz': plz
+		});
 	} else {
-		request = "&user=1";
+		dataPush( data, { 'user': 1 } );
 	}
 	
-	var url = offerurl + "?t=4" + request;
+	var url = offerurl;
 	//console.log(url);
-	$(element).load( url );
+	$(element).load( url, data );
 }
 
 function addOffer(){
@@ -48,12 +51,15 @@ function _addOffer(userid=null){
 		var amount = Number( document.getElementById('amount').value );
 		var text = btoa( encodeURI(document.getElementById('description').value) );
 		
-		url = url + offerurl + "?t=0&user=" + userid
-			+ "&amount=" + amount
-			+ "&text=" + text;
+		url = url + offerurl;
+		var data = {
+			"t": 0,
+			"user": userid,
+			"amount": amount,
+			"text": text };
 		//console.log(url);
 		
-		httpRequest( url, function(response){
+		$.post( url, data, function(response){
 			if( response.length > 0 ){
 				log_success( "Angebot hinzugefügt." );
 			}
@@ -69,10 +75,13 @@ function deleteOffer(id=null){
 	
 		var url = getBaseURL();
 		var	offerurl = document.getElementById('offerurl').getAttribute('value');
-		url = url + offerurl + "?t=2&id=" + id;
+		url = url + offerurl;
+		var data = {
+			"t": 2,
+			"id": id };
 		//console.log(url);
 		
-		httpRequest( url, function(response){
+		$.post( url, data, function(response){
 			if( response.length > 0 ){
 				log_success( "Eintrag gelöscht" );
 				loadOffers();

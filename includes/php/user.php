@@ -24,9 +24,9 @@ function getUserData($print=false){
 
 }
 
-if( array_key_exists('t', $_GET) ){
+if( array_key_exists('t', $_REQUEST) ){
 
-	if( $_GET['t'] == "0" ){	
+	if( $_REQUEST['t'] == "0" ){	
 		// GET USER DATA
 		getUserData(true);
 	}

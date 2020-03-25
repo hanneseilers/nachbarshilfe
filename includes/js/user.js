@@ -6,7 +6,7 @@ function getUserData(callback=null){
 	url = url + offerurl + "?t=0";
 	//console.log(url);
 	
-	httpRequest( url, function(response){
+	$.post( url, function(response){
 		if( response.length > 0 && callback != null ){
 			callback( JSON.parse(response) );
 		}

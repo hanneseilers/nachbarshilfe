@@ -1,16 +1,19 @@
 function loadRequests(element="#requestsBody", plz=null){
 	var	requesturl = document.getElementById('requesturl').getAttribute('value');
-	var request = "";
+	var data = { 't' : 4};
 	
 	if( plz != null ){
-		request = "&user=1&plz=" + plz;
+		dataPush( data, {
+			"user": 1,
+			"plz": plz
+		} );
 	} else {
-		request = "&user=1";
+		dataPush( data, { 'user': 1 } );
 	}
 	
-	var url = requesturl + "?t=4" + request;
+	var url = requesturl;
 	//console.log(url);
-	$(element).load( url );
+	$(element).load( url, data );
 }
 
 function addRequest(){
@@ -48,12 +51,15 @@ function _addRequest(userid=null){
 		var amount = Number( document.getElementById('amount').value );
 		var text = btoa( encodeURI(document.getElementById('description').value) );
 		
-		url = url + requesturl + "?t=0&user=" + userid
-			+ "&amount=" + amount
-			+ "&text=" + text;
+		url = url + requesturl;
+		var data = {
+			"t": 0,
+			"user": userid,
+			"amount": amount,
+			"text=": text };
 		//console.log(url);
 		
-		httpRequest( url, function(response){
+		$.post( url, data, function(response){
 			if( response.length > 0 ){
 				log_success( "Anfrage hinzugefügt." );
 			}
@@ -69,10 +75,13 @@ function deleteRequest(id=null){
 	
 		var url = getBaseURL();
 		var	requesturl = document.getElementById('requesturl').getAttribute('value');
-		url = url + requesturl + "?t=2&id=" + id;
+		url = url + requesturl;
+		var data = {
+			"t": 2,
+			"id": id };
 		//console.log(url);
 		
-		httpRequest( url, function(response){
+		$.post( url, data, function(response){
 			if( response.length > 0 ){
 				log_success( "Eintrag gelöscht" );
 				loadRequests();

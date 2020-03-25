@@ -8,6 +8,8 @@
 	require( $php."db_init.php" );
 	require( $php."base.php" );
 	
+	getJs('base.js');
+	
 	# handle automatic user login time update
 	if( isset($_SESSION['user']) && validateUserTime() ){
 		updateUserTime();

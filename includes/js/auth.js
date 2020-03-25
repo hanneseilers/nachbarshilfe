@@ -1,8 +1,3 @@
-function getBaseURL(){
-	var url = document.location.href;
-	return url.substr( 0, url.lastIndexOf('/')+1 );
-};
-
 function _register(callback=null){
 
 	var url = getBaseURL();
@@ -14,28 +9,36 @@ function _register(callback=null){
 	var plz = btoa( document.getElementById('plz').value );
 	var adress = btoa( encodeURI(document.getElementById('adress').value) );
 	
-	url = url + authurl
-		+ "?t=1&phone=" + phone
-		+ "&mail=" + mail
-		+ "&pw=" + pw
-		+ "&name=" + name
-		+ "&plz=" + plz
-		+ "&adress=" + adress;
+	url = url + authurl;
+	var data = {
+		"t": 1,
+		"phone": phone,
+		"mail": mail,
+		"pw": pw,
+		"name": name,
+		"plz": plz,
+		"adress": adress };
 	//console.log( url );
+	//console.log(data);
 	
-	httpRequest( url, function(response){
+	$.post( url, data, function(response){
+		console.log(response);
 		if( response.length > 0 && callback != null ){
 			callback( response );
+			log_success( "Anmeldung erfolgreich!" );
 		} else {
-			alert( "Registrierung fehlgeschlagen!");
+			log_err( "Registrierung fehlgeschlagen!");
 		}
 	} );
+	
+	$.("")
 
 };
 
 function register(){
 	_register( function(response){
 		console.log( "registered user" );
+		// TODO
 	});
 }
 
@@ -46,12 +49,15 @@ function login(reload=true){
 	var mail = btoa( document.getElementById('mail').value );
 	var pw = md5( document.getElementById('pw').value );
 	
-	url = url + authurl + "?t=0&phone=" + phone
-		+ "&mail=" + mail
-		+ "&pw=" + pw;
+	url = url + authurl ;
+	var data = {
+		"t": 0,
+		"phone": phone,
+		"mail": mail,
+		"pw": pw };
 	//console.log( url );
 		
-	httpRequest( url, function(response){
+	$.post( url, data, function(response){
 		if( response.length > 0 ){
 			console.log( "login successfull" );
 			document.getElementById('err_loginfailed').style.display = 'none';
@@ -77,17 +83,19 @@ function _update( callback=null){
 	var adress = btoa( encodeURI( document.getElementById('adress').value ) );
 	var id = document.getElementById('userid').getAttribute('value');
 	
-	url = url + authurl
-		+ "?t=2&phone=" + phone
-		+ "&mail=" + mail
-		+ "&pw=" + pw
-		+ "&name=" + name
-		+ "&plz=" + plz
-		+ "&adress=" + adress
-		+ "&userid=" + id;		
+	url = url + authurl;
+	var data = {
+		"t": 2,
+		"phone": phone,
+		"mail": mail,
+		"pw": pw,
+		"name": name,
+		"plz": plz,
+		"adress": adress,
+		"userid": id };		
 	//console.log( url );
 	
-	httpRequest( url, function(response){
+	$.post( url, data, function(response){
 		if( response.length > 0 && callback != null ){			
 			callback( response );
 		}
@@ -106,11 +114,11 @@ function logout(reload=true){
 	var url = getBaseURL();
 	var	authurl = document.getElementById('authurl').getAttribute('value');
 	
-	url = url + authurl
-		+ "?t=-1";		
+	url = url + authurl;
+	var data = { "t": -1 };
 	//console.log( url );
 	
-	httpRequest( url, function(){
+	$.post( url, data, function(){
 		console.log( "logged out" );
 		
 		if( reload )
@@ -118,18 +126,3 @@ function logout(reload=true){
 	} );
 
 }
-
-function httpRequest(theUrl, callback)
-{
-	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.onreadystatechange = function() { 
-	
-	if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-		callback(xmlHttp.responseText);
-	}
-	
-	xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-	xmlHttp.send(null);
-	
-	return true;
-};

@@ -158,44 +158,45 @@ function getRequest($id=null){
 
 }
 
-
-if( array_key_exists('t', $_GET) ){
+if( array_key_exists('t', $_REQUEST) ){
 
 	$id = null;	
 	$user = null;
 	$amount = null;
 	$text = null;
 	
-	if( array_key_exists('id', $_GET) )
-		$id = $_GET['id'];
-	if( array_key_exists('user', $_GET) )
-		$user = $_GET['user'];
-	if( array_key_exists('amount', $_GET) )
-		$amount = $_GET['amount'];
-	if( array_key_exists('text', $_GET) )
-		$text = $_GET['text'];
+	if( array_key_exists('id', $_REQUEST) )
+		$id = $_REQUEST['id'];
+	if( array_key_exists('user', $_REQUEST) )
+		$user = $_REQUEST['user'];
+	if( array_key_exists('amount', $_REQUEST) )
+		$amount = $_REQUEST['amount'];
+	if( array_key_exists('text', $_REQUEST) )
+		$text = $_REQUEST['text'];
+		
+	
 
-	if( $_GET['t'] == "0" ){	
+	if( $_REQUEST['t'] == "0" ){	
 		// ADD
 		add( $user, $amount, $text );
-	} elseif( $_GET['t'] == "1" ){	
+	} elseif( $_REQUEST['t'] == "1" ){	
 		// UPDATE
 		update( $id, $user, $amount, $text );
-	} elseif( $_GET['t'] == "2"){
+	} elseif( $_REQUEST['t'] == "2"){
 		// DELETE
 		delete( $id );
-	} elseif( $_GET['t'] == "3"){
+	} elseif( $_REQUEST['t'] == "3"){
 		// SHOW REQUESTS
 		getRequests(true);
-	} elseif( $_GET['t'] == "4"){
+	} elseif( $_REQUEST['t'] == "4"){
 		// SHOW REQUESTS
 		if( isset($_SESSION['user']) ){
-			if( isset($_GET['user']) && isset($_GET['plz']) ){
-				getRequests(true, $_SESSION['user']['id'], $_GET['plz']);
-			} elseif( isset($_GET['user']) ){
+			if( isset($_REQUEST['user']) && isset($_REQUEST['plz']) ){
+				getRequests(true, $_SESSION['user']['id'], $_REQUEST['plz']);
+			} elseif( isset($_REQUEST['user']) ){
 				getRequests(true, $_SESSION['user']['id']);
-			} elseif( isset($_GET['plz']) ){
-				getRequests(true, false, $_GET['plz']);
+			} elseif( isset($_REQUEST['plz']) ){
+				getRequests(true, false, $_REQUEST['plz']);
 			} else {
 				getRequests(true);
 			}
