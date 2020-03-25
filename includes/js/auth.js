@@ -30,8 +30,6 @@ function _register(callback=null){
 			log_err( "Registrierung fehlgeschlagen!");
 		}
 	} );
-	
-	$.("")
 
 };
 
@@ -103,7 +101,7 @@ function _update( callback=null){
 
 }
 
-function update(){
+function updateUserInfo(){
 	_update( function(response){
 		location.reload();
 	} );

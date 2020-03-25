@@ -12,7 +12,7 @@
 <hr />
 
 <!-- Load auth plugin -->
-<?php getJs('auth,js'); ?>
+<?php getJs('auth.js'); ?>
 <span id="authurl" value="<?php global $php; print $php."auth.php" ?>" hidden></span>
 
 <p>
@@ -66,13 +66,13 @@
 </p>	
 <p>
 	
-	<button class="btn btn-info" onClick="update();"><i class="fas fa-save"></i> Speichern</button>
+	<button class="btn btn-info" onClick="updateUserInfo();"><i class="fas fa-save"></i> Speichern</button>
 	
 	<script>
 		$(document).ready(function(){
 			$(".form-group > input").keypress(function(event){
 				if( event.type == "keypress" && event.which == 13 ){
-					update();			
+					updateUserInfo();			
 				}
 			});
 		});
